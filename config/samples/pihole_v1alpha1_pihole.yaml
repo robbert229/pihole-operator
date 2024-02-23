@@ -1,0 +1,22 @@
+apiVersion: pihole.lab.johnrowley.co/v1alpha1
+kind: PiHole
+metadata:
+  labels:
+    app.kubernetes.io/name: pihole
+    app.kubernetes.io/instance: pihole-sample
+    app.kubernetes.io/part-of: pihole-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: pihole-operator
+  name: pihole-sample
+spec:
+  replicas: 3
+  dns:
+    upstreamServers:
+    - "8.8.8.8"
+    - "8.8.4.4"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  dnsRecordSelector: {}
+  dnsRecordNamespaceSelector: {}
