@@ -1,0 +1,27 @@
+# permissions for end users to view dnsarecords.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: dnsarecord-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: pihole-operator
+    app.kubernetes.io/part-of: pihole-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: dnsarecord-viewer-role
+rules:
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnsarecords
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnsarecords/status
+  verbs:
+  - get

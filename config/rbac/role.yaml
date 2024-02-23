@@ -1,0 +1,84 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnsarecords
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnsarecords/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnsarecords/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnscnamerecords
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnscnamerecords/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - dnscnamerecords/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - piholes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - piholes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - pihole.lab.johnrowley.co
+  resources:
+  - piholes/status
+  verbs:
+  - get
+  - patch
+  - update
