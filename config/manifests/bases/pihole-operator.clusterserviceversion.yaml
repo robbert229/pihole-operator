@@ -1,0 +1,55 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: pihole-operator.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: DnsRecord is the Schema for the dnsrecords API
+      displayName: Dns Record
+      kind: DnsRecord
+      name: dnsrecords.pihole.lab.johnrowley.co
+      version: v1alpha1
+    - description: PiHole is the Schema for the piholes API
+      displayName: Pi Hole
+      kind: PiHole
+      name: piholes.pihole.lab.johnrowley.co
+      version: v1alpha1
+  description: The Pi-hole® is a DNS sinkhole that protects your devices from unwanted
+    content, without installing any client-side software.
+  displayName: pihole-operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - pihole
+  - dns
+  links:
+  - name: Pihole Operator
+    url: https://pihole-operator.domain
+  maintainers:
+  - email: johnrowleyster@gmail.com
+    name: robbert229
+  maturity: alpha
+  provider:
+    name: pihole-operator
+    url: https://github.com/robbert229/pihole-operator
+  version: 0.0.0

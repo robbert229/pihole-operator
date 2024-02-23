@@ -1,0 +1,10 @@
+---
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: pihole-operator
+servers: 1
+agents: 0
+image: docker.io/rancher/k3s:v1.27.4-k3s1
+kubeAPI: # same as `--api-port myhost.my.domain:6445` (where the name would resolve to 127.0.0.1)
+  hostIP: "127.0.0.1" # where the Kubernetes API will be listening on
