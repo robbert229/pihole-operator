@@ -34,10 +34,11 @@ spec:
           spec:
             description: PiHoleSpec defines the desired state of PiHole
             properties:
-              foo:
-                description: Foo is an example field of PiHole. Edit pihole_types.go
-                  to remove/update
+              type:
+                description: Type is the type of pihole instance. Can be `external`.
                 type: string
+            required:
+            - type
             type: object
           status:
             description: PiHoleStatus defines the observed state of PiHole

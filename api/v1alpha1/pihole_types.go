@@ -28,8 +28,8 @@ type PiHoleSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of PiHole. Edit pihole_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Type is the type of pihole instance. Can be `external`.
+	Type string `json:"type"`
 }
 
 // PiHoleStatus defines the observed state of PiHole
