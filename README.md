@@ -1,6 +1,6 @@
 # pihole-operator
 
-![PiHole Logo](./docs/pihole.svg)
+<img src="docs/pihole.svg" width="256px"/>
 
 ## Description
 
