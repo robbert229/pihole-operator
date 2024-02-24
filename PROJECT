@@ -38,4 +38,13 @@ resources:
   kind: DnsARecord
   path: github.com/robbert229/pihole-operator/api/v1alpha1
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: lab.johnrowley.co
+  group: pihole
+  kind: DnsRecord
+  path: github.com/robbert229/pihole-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"

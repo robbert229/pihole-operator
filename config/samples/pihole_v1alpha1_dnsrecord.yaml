@@ -1,0 +1,29 @@
+apiVersion: pihole.lab.johnrowley.co/v1alpha1
+kind: DnsRecord
+metadata:
+  labels:
+    app.kubernetes.io/name: dnsrecord
+    app.kubernetes.io/instance: dnsrecord-sample
+    app.kubernetes.io/part-of: pihole-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: pihole-operator
+  name: dnsrecord-cname-sample
+spec:
+  cname:
+    domain: "pihole.lab.johnrowley.co"
+    target: "pihole.infra.lab.johnrowley.co"
+---
+apiVersion: pihole.lab.johnrowley.co/v1alpha1
+kind: DnsRecord
+metadata:
+  labels:
+    app.kubernetes.io/name: dnsrecord
+    app.kubernetes.io/instance: dnsrecord-sample
+    app.kubernetes.io/part-of: pihole-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: pihole-operator
+  name: dnsrecord-a-sample
+spec:
+  a:
+    domain: "pihole.lab.johnrowley.co"
+    ip: "123.123.123.123"

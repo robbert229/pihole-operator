@@ -51,7 +51,7 @@ endif
 OPERATOR_SDK_VERSION ?= v1.33.0
 
 # Image URL to use all building/pushing image targets
-IMG ?= controller:latest
+IMG ?= ghcr.io/robbert229/pihole-operator/controller:latest
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.27.1
 
@@ -88,6 +88,10 @@ all: build
 # https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters
 # More info on the awk command:
 # http://linuxcommand.org/lc3_adv_awk.php
+
+.PHONY: deviter
+deviter:
+	make docker-build && make docker-push && make undeploy && make deploy && kubectl apply -f ./config/samples/pihole_v1alpha1_pihole.yaml && kubectl apply -f ./config/samples/pihole_v1alpha1_dnsrecord.yaml
 
 .PHONY: help
 help: ## Display this help.
