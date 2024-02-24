@@ -1,80 +1,88 @@
 # pihole-operator
-// TODO(user): Add simple overview of use/purpose
+
+![PiHole Logo](./docs/pihole.svg)
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
 
-## Getting Started
-You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
-**Note:** Your controller will automatically use the current context in your kubeconfig file (i.e. whatever cluster `kubectl cluster-info` shows).
+PiHole Operator is the solution to the problem of wanting a highly available 
+replicated pihole deployment. It does this by making configuration of pihole
+done exclusively through kubernetes resource definitions. 
 
-### Running on the cluster
-1. Install Instances of Custom Resources:
+## Installation
 
-```sh
-kubectl apply -f config/samples/
+This operator, similar to many others, relies on OLM for installation, and 
+distribution. https://sdk.operatorframework.io/docs/olm-integration/tutorial-bundle/#enabling-olm
+
+```
+# install operator-sdk
+wget https://github.com/operator-framework/operator-sdk/releases/download/v1.33.0/operator-sdk_linux_amd64
+mv ./operator-sdk_linux_amd64 ./operator-sdk
+sudo install ./operator-sdk /usr/local/bin
+
+
+# install the pihole-operator
+operator-sdk olm install
+operator-sdk olm status
+operator-sdk run bundle ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.0.1
 ```
 
-2. Build and push your image to the location specified by `IMG`:
+### Updating
 
-```sh
-make docker-build docker-push IMG=<some-registry>/pihole-operator:tag
+```
+# update the pihole-operator
+operator-sdk run bundle-upgrade ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.0.X
 ```
 
-3. Deploy the controller to the cluster with the image specified by `IMG`:
+## Usage
 
-```sh
-make deploy IMG=<some-registry>/pihole-operator:tag
+```yaml
+apiVersion: pihole.lab.johnrowley.co/v1alpha1
+kind: PiHole
+metadata:
+  name: pihole-sample
+spec:
+  # how many replicas should exist in the replica set.
+  replicas: 3 
+  dns:
+    # what upstream servers should the pihole use.
+    upstreamServers:
+    - "8.8.8.8"
+    - "8.8.4.4"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  # dnsRecordSelector is a label selector that is used to ensure that the 
+  # pihole instance will only pickup configuration that match the given 
+  # selector
+  dnsRecordSelector: {}
+
+  # dnsRecordNamespaceSelector is a label selector that is used to filter
+  # which namespaces the pihole-operator should operate in.
+  dnsRecordNamespaceSelector: {}
+---
+# here we configure the pihole to have a dns record installed.
+apiVersion: pihole.lab.johnrowley.co/v1alpha1
+kind: DnsRecord
+metadata:
+  name: dnsrecord-cname-sample
+spec:
+  # cname allows us to set a cname record.
+  cname:
+    domain: "pihole.lab.johnrowley.co"
+    target: "pihole.infra.lab.johnrowley.co"
+---
+# here we configure the pihole to have a dns record installed.
+apiVersion: pihole.lab.johnrowley.co/v1alpha1
+kind: DnsRecord
+metadata:
+  name: dnsrecord-a-sample
+spec:
+  # a allows us to set an a record.
+  a:
+    domain: "pihole.lab.johnrowley.co"
+    ip: "123.123.123.123"
 ```
-
-### Uninstall CRDs
-To delete the CRDs from the cluster:
-
-```sh
-make uninstall
-```
-
-### Undeploy controller
-UnDeploy the controller from the cluster:
-
-```sh
-make undeploy
-```
-
-## Contributing
-// TODO(user): Add detailed information on how you would like others to contribute to this project
-
-### How it works
-This project aims to follow the Kubernetes [Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/).
-
-It uses [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/),
-which provide a reconcile function responsible for synchronizing resources until the desired state is reached on the cluster.
-
-### Test It Out
-1. Install the CRDs into the cluster:
-
-```sh
-make install
-```
-
-2. Run your controller (this will run in the foreground, so switch to a new terminal if you want to leave it running):
-
-```sh
-make run
-```
-
-**NOTE:** You can also run this in one step by running: `make install run`
-
-### Modifying the API definitions
-If you are editing the API definitions, generate the manifests such as CRs or CRDs using:
-
-```sh
-make manifests
-```
-
-**NOTE:** Run `make --help` for more information on all potential `make` targets
-
-More information can be found via the [Kubebuilder Documentation](https://book.kubebuilder.io/introduction.html)
 
 ## Attribution
 
