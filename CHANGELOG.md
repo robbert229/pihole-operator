@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/robbert229/pihole-operator/compare/v1.0.0...v1.1.0) (2024-02-25)
+
+
+### Features
+
+* improved crd field descriptions ([bc67108](https://github.com/robbert229/pihole-operator/commit/bc67108184319e798f082d21b995a90f778fa0fa))
+
 ## 0.1.0 (2024-02-25)
 
 
