@@ -294,3 +294,12 @@ catalog-build: opm ## Build a catalog image.
 .PHONY: catalog-push
 catalog-push: ## Push a catalog image.
 	$(MAKE) docker-push IMG=$(CATALOG_IMG)
+
+
+.PHONY: 
+k3d-up:
+	k3d cluster create --config=./hack/k3d.yaml
+
+.PHONY: 
+k3d-down:
+	k3d cluster delete --config=./hack/k3d.yaml
