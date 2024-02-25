@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/robbert229/pihole-operator/compare/v1.1.0...v1.2.0) (2024-02-25)
+
+
+### Features
+
+* ensured reconcile loop doesn't re-apply identical objects ([e772ef3](https://github.com/robbert229/pihole-operator/commit/e772ef39e4cb0419a039362dd7288a2884d61c97))
+
 ## [1.1.0](https://github.com/robbert229/pihole-operator/compare/v1.0.0...v1.1.0) (2024-02-25)
 
 
