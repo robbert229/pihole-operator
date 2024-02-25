@@ -35,22 +35,30 @@ spec:
             description: DnsRecordSpec defines the desired state of DnsRecord
             properties:
               a:
-                description: Foo is an example field of DnsRecord. Edit dnsrecord_types.go
-                  to remove/update
+                description: A configures the this DnsRecordSpec to provide an A record
+                  dns record.
                 properties:
                   domain:
+                    description: Domain is the domain of the new cname record.
                     type: string
                   ip:
+                    description: IP is where the ip address that the a record should
+                      resolve to.
                     type: string
                 required:
                 - domain
                 - ip
                 type: object
               cname:
+                description: CNAME configures the this DnsRecordSpec to provide an
+                  CNAME record dns record.
                 properties:
                   domain:
+                    description: Domain is the domain of the new cname record.
                     type: string
                   target:
+                    description: Target is the domain that the cname should resolve
+                      to.
                     type: string
                 required:
                 - domain

@@ -20,26 +20,33 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // DnsRecordSpec defines the desired state of DnsRecord
 type DnsRecordSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of DnsRecord. Edit dnsrecord_types.go to remove/update
-	A     *ASpec     `json:"a,omitempty"`
+	// A configures the this DnsRecordSpec to provide an A record dns record.
+	A *ASpec `json:"a,omitempty"`
+
+	// CNAME configures the this DnsRecordSpec to provide an CNAME record dns record.
 	CNAME *CNAMESpec `json:"cname,omitempty"`
 }
 
+// ASpec is configuration for a a record.
 type ASpec struct {
-	IP     string `json:"ip"`
+	// Domain is the domain of the new cname record.
 	Domain string `json:"domain"`
+
+	// IP is where the ip address that the a record should resolve to.
+	IP string `json:"ip"`
 }
 
+// CNAMESpace is configuration for a cname record.
 type CNAMESpec struct {
+	// Domain is the domain of the new cname record.
 	Domain string `json:"domain"`
+
+	// Target is the domain that the cname should resolve to.
 	Target string `json:"target"`
 }
 
