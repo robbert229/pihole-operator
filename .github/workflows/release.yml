@@ -35,13 +35,14 @@ jobs:
       - run: git fetch --force --tags
       - uses: docker/login-action@v2
         with:
+          registry: ghcr.io
           username: robbert229
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/setup-go@v4
-        with:
-          go-version-file: 'go.mod'
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: actions/setup-go@v4
+      #   with:
+      #     go-version-file: 'go.mod'
       - uses: docker/setup-qemu-action@v2
       - name: docker-build
-        run: make docker-build IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${version}
+        run: make docker-build IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
       - name: docker-push
-        run: make docker-push IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${version}
+        run: make docker-push IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
