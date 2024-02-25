@@ -40,4 +40,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/setup-qemu-action@v2
       - name: docker-buildx
-        run: make docker-buildx IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
+        run: make docker-buildx VERSION=${{ needs.release-please.outputs.version }}
+      - name: bundle
+        run: make bundle bundle-build bundle-push VERSION=${{ needs.release-please.outputs.version }}

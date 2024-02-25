@@ -23,7 +23,7 @@ sudo install ./operator-sdk /usr/local/bin
 # install the pihole-operator
 operator-sdk olm install
 operator-sdk olm status
-operator-sdk run bundle ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.0.1
+operator-sdk run bundle ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v1.3.1
 ```
 
 ### Updating
@@ -31,6 +31,12 @@ operator-sdk run bundle ghcr.io/robbert229/pihole-operator/pihole-operator-bundl
 ```
 # update the pihole-operator
 operator-sdk run bundle-upgrade ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.0.X
+```
+
+### Uninstall
+
+```
+operator-sdk cleanup pihole-operator
 ```
 
 ## Usage

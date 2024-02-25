@@ -70,7 +70,7 @@ spec:
         - /manager
         args:
         - --leader-elect
-        image: ghcr.io/robbert229/pihole-operator/controller:latest
+        image: ghcr.io/robbert229/pihole-operator/pihole-operator:latest
         name: manager
         securityContext:
           allowPrivilegeEscalation: false
