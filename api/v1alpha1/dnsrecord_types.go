@@ -22,9 +22,6 @@ import (
 
 // DnsRecordSpec defines the desired state of DnsRecord
 type DnsRecordSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
 	// A configures the this DnsRecordSpec to provide an A record dns record.
 	A *ASpec `json:"a,omitempty"`
 

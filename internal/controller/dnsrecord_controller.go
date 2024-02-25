@@ -19,9 +19,11 @@ package controller
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"time"
 
 	"github.com/go-logr/logr"
+	"github.com/robbert229/pihole-operator/api/v1alpha1"
 	piholev1alpha1 "github.com/robbert229/pihole-operator/api/v1alpha1"
 	"github.com/robbert229/pihole-operator/internal/pihole"
 	corev1 "k8s.io/api/core/v1"
@@ -31,7 +33,9 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/event"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	"sigs.k8s.io/controller-runtime/pkg/predicate"
 )
 
 var defaultRequeueDuration = time.Second * 4
@@ -237,5 +241,16 @@ func (r *DnsRecordReconciler) reconcileDNSRecord(
 func (r *DnsRecordReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&piholev1alpha1.DnsRecord{}).
+		WithEventFilter(predicate.Funcs{
+			UpdateFunc: func(ue event.UpdateEvent) bool {
+				oldObj, oldOk := ue.ObjectOld.(*v1alpha1.DnsRecord)
+				newObj, newOk := ue.ObjectNew.(*v1alpha1.DnsRecord)
+				if !oldOk || !newOk {
+					return false
+				}
+
+				return !reflect.DeepEqual(oldObj.Spec, newObj.Spec)
+			},
+		}).
 		Complete(r)
 }
