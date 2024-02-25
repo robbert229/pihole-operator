@@ -38,11 +38,6 @@ jobs:
           registry: ghcr.io
           username: robbert229
           password: ${{ secrets.GITHUB_TOKEN }}
-      # - uses: actions/setup-go@v4
-      #   with:
-      #     go-version-file: 'go.mod'
       - uses: docker/setup-qemu-action@v2
       - name: docker-buildx
         run: make docker-buildx IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
-      - name: docker-push
-        run: make docker-push IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
