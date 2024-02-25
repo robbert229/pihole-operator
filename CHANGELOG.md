@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/robbert229/pihole-operator/compare/v1.2.0...v1.3.0) (2024-02-25)
+
+
+### Features
+
+* enabled multi-arch builds ([87f5f1b](https://github.com/robbert229/pihole-operator/commit/87f5f1b19020eac4b1acc09507f8d25c7fd7df46))
+
 ## [1.2.0](https://github.com/robbert229/pihole-operator/compare/v1.1.0...v1.2.0) (2024-02-25)
 
 
