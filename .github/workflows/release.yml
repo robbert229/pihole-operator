@@ -42,7 +42,7 @@ jobs:
       #   with:
       #     go-version-file: 'go.mod'
       - uses: docker/setup-qemu-action@v2
-      - name: docker-build
-        run: make docker-build IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
+      - name: docker-buildx
+        run: make docker-buildx IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
       - name: docker-push
         run: make docker-push IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:${{ needs.release-please.outputs.tag_name }}
