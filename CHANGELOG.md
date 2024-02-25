@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/robbert229/pihole-operator/compare/v1.3.0...v1.3.1) (2024-02-25)
+
+
+### Bug Fixes
+
+* tweaked ci and fixing multi-arch builds ([152ea3e](https://github.com/robbert229/pihole-operator/commit/152ea3ec997aaf530141ee350d4a1b891f21d15a))
+
 ## [1.3.0](https://github.com/robbert229/pihole-operator/compare/v1.2.0...v1.3.0) (2024-02-25)
 
 
