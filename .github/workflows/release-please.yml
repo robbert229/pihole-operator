@@ -1,0 +1,24 @@
+on:
+    push:
+      branches:
+        - main
+  
+permissions:
+  contents: read
+  pull-requests: write
+
+name: release
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-please.outputs.release_created }}
+      tag_name: ${{ steps.release-please.outputs.tag_name }} # e.g. v1.0.0
+      version: ${{ steps.release-please.outputs.version }} # e.g. 1.0.0
+    steps:
+      - uses: google-github-actions/release-please-action@v4
+        id: release-please
+        with:
+          release-type: simple
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

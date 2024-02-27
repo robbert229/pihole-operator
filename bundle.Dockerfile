@@ -14,11 +14,6 @@ LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v4
 LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
-# GitHub labels
-LABEL org.opencontainers.image.source=https://github.com/robbert229/pihole-operator
-LABEL org.opencontainers.image.description="pihole-operator-bundle"
-LABEL org.opencontainers.image.licenses="Apache-2.0"
-
 # Copy files to locations specified by labels.
 COPY bundle/manifests /manifests/
 COPY bundle/metadata /metadata/

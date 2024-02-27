@@ -1,33 +1,21 @@
 on:
     push:
-      branches:
-        - main
+      # branches:
+      #   - main
+      tags:
+        - v*
     # schedule:
     #   - cron: '0 1 * * 1-5' # 1 AM UTC is 5 PM PST/ 6 PM PDT
   
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  packages: write
 
 name: release
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release-please.outputs.release_created }}
-      tag_name: ${{ steps.release-please.outputs.tag_name }} # e.g. v1.0.0
-      version: ${{ steps.release-please.outputs.version }} # e.g. 1.0.0
-    steps:
-      - uses: google-github-actions/release-please-action@v4
-        id: release-please
-        with:
-          release-type: simple
-          config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
   release:
     runs-on: ubuntu-latest
-    needs: [release-please]
-    if: needs.release-please.outputs.release_created
+    if: 
     steps:
       - uses: actions/checkout@v3
         with:
@@ -39,7 +27,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/setup-qemu-action@v2
-      - name: docker-buildx
-        run: make docker-buildx VERSION=${{ needs.release-please.outputs.version }}
-      - name: bundle
-        run: make bundle bundle-build bundle-push VERSION=${{ needs.release-please.outputs.version }}
+      - name: build
+        run: |
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # This strips the "v" prefix from the tag name.
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # This uses the Docker `latest` tag convention.
+          [ "$VERSION" == "main" ] && VERSION=1.0.0-beta
+
+          make docker-buildx VERSION=$VERSION
+          make bundle bundle-build bundle-push VERSION=$VERSION
