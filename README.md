@@ -13,29 +13,38 @@ done exclusively through kubernetes resource definitions.
 This operator, similar to many others, relies on OLM for installation, and 
 distribution. https://sdk.operatorframework.io/docs/olm-integration/tutorial-bundle/#enabling-olm
 
-```
+```bash
 # install operator-sdk
 wget https://github.com/operator-framework/operator-sdk/releases/download/v1.33.0/operator-sdk_linux_amd64
 mv ./operator-sdk_linux_amd64 ./operator-sdk
 sudo install ./operator-sdk /usr/local/bin
+```
 
+<!--- x-release-please-start-version --->
 
+```bash
 # install the pihole-operator
 operator-sdk olm install
 operator-sdk olm status
-operator-sdk run bundle ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v1.3.1
+operator-sdk run bundle ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.1.0
 ```
+
+<!--- x-release-please-end --->
 
 ### Updating
 
-```
+<!--- x-release-please-start-version --->
+
+```bash
 # update the pihole-operator
-operator-sdk run bundle-upgrade ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.0.X
+operator-sdk run bundle-upgrade ghcr.io/robbert229/pihole-operator/pihole-operator-bundle:v0.1.0
 ```
+
+<!--- x-release-please-end --->
 
 ### Uninstall
 
-```
+```bash
 operator-sdk cleanup pihole-operator
 ```
 

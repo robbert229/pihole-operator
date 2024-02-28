@@ -91,7 +91,14 @@ all: build
 
 .PHONY: deviter
 deviter:
-	make docker-build && make docker-push && make undeploy && make deploy && kubectl apply -f ./config/samples/pihole_v1alpha1_pihole.yaml && kubectl apply -f ./config/samples/pihole_v1alpha1_dnsrecord.yaml
+	make docker-build docker-push IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:latest
+	make undeploy IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:latest
+	make deploy  IMG=ghcr.io/robbert229/pihole-operator/pihole-operator:latest
+
+.PHONY: sample
+sample:
+	kubectl apply -f ./config/samples/pihole_v1alpha1_pihole.yaml
+	kubectl apply -f ./config/samples/pihole_v1alpha1_dnsrecord.yaml
 
 .PHONY: help
 help: ## Display this help.
