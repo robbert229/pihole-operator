@@ -1,7 +1,7 @@
 on:
     push:
-      # branches:
-      #   - main
+      branches:
+        - main
       tags:
         - v*
     # schedule:
@@ -33,7 +33,7 @@ jobs:
           # This strips the "v" prefix from the tag name.
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           # This uses the Docker `latest` tag convention.
-          [ "$VERSION" == "main" ] && VERSION=1.0.0-beta
+          [ "$VERSION" == "main" ] && exit 0
 
           make docker-buildx VERSION=$VERSION
           make bundle bundle-build bundle-push VERSION=$VERSION
